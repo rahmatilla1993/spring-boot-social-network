@@ -19,14 +19,19 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
+
     @Column(nullable = false)
     private String username;
+
     @Column(nullable = false)
     private UUID userId;
+
     @Column(columnDefinition = "text",nullable = false)
     private String message;
+
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdDate;

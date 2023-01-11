@@ -41,8 +41,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = getJWTFromRequest(request);
-            response.addHeader("Access-Control-Allow-Origin","https://spring-boot-social-network.herokuapp.com/");
-            response.addHeader("Access-Control-Allow-Methods","GET, POST, PUT, DELETE");
             if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
                 String username = jwtTokenProvider.getUserNameFromToken(token);
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);

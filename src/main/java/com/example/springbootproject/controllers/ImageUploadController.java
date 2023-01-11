@@ -15,7 +15,6 @@ import java.util.zip.DataFormatException;
 
 @RestController
 @RequestMapping("/api/image")
-@CrossOrigin
 public class ImageUploadController {
 
     private final ImageUploadService imageUploadService;

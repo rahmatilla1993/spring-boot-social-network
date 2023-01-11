@@ -1,16 +1,17 @@
 package com.example.springbootproject.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,14 +29,15 @@ public class Post {
 
     @Column
     @ElementCollection(targetClass = String.class)
-    private Set<String> likedUsers;
+    private Set<String> likedUsers = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER,
-               mappedBy = "post", orphanRemoval = true)
-    private List<Comment> comments;
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+                fetch = FetchType.LAZY,
+                mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
 
     @CreationTimestamp
     @Column(updatable = false)

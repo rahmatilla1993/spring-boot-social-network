@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -40,7 +41,8 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL,
-               fetch = FetchType.LAZY,mappedBy = "user",
+               fetch = FetchType.LAZY,
+               mappedBy = "user",
                orphanRemoval = true)
     private List<Post> posts;
 

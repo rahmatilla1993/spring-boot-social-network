@@ -75,7 +75,7 @@ public class ImageUploadService {
         User user = getUserByPrincipal(principal);
         ImageModel imageModel = imageRepository
                 .findByUserId(user.getId())
-                .orElseThrow(() -> new ImageNotFoundException("Cannot find image to username : " + user.getUsername()));
+                .orElse(null);
         if (!ObjectUtils.isEmpty(imageModel)) {
             imageModel.setImageBytes(deCompressBytes(imageModel.getImageBytes()));
         }
@@ -85,7 +85,7 @@ public class ImageUploadService {
     public ImageModel getImageToPost(Long postId) throws DataFormatException {
         ImageModel imageModel = imageRepository
                 .findByPostId(postId)
-                .orElseThrow(() -> new ImageNotFoundException("Cannot find Image to Post: " + postId));
+                .orElse(null);
         if (!ObjectUtils.isEmpty(imageModel)) {
             imageModel.setImageBytes(deCompressBytes(imageModel.getImageBytes()));
         }

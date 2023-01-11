@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/comment")
-@CrossOrigin
 public class CommentController {
 
     private final CommentService commentService;
@@ -26,7 +25,8 @@ public class CommentController {
     private final ResponseErrorValidation responseErrorValidation;
 
     @Autowired
-    public CommentController(CommentService commentService, ModelMapper modelMapper,
+    public CommentController(CommentService commentService,
+                             ModelMapper modelMapper,
                              ResponseErrorValidation responseErrorValidation) {
         this.commentService = commentService;
         this.modelMapper = modelMapper;

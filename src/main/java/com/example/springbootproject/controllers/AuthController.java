@@ -20,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -32,7 +31,8 @@ public class AuthController {
     @Autowired
     public AuthController(UserService userService,
                           ResponseErrorValidation responseErrorValidation,
-                          AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+                          AuthenticationManager authenticationManager,
+                          JwtTokenProvider jwtTokenProvider) {
         this.userService = userService;
         this.responseErrorValidation = responseErrorValidation;
         this.authenticationManager = authenticationManager;
@@ -59,7 +59,7 @@ public class AuthController {
         }
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-        Authentication authenticate =
+        var authenticate =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = SecurityConstants.TOKEN_PREFIX + jwtTokenProvider.createToken(authenticate);
